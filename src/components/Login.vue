@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="error">
+      <div v-if="errors">
+        <div v-for="help in errors">{{help.type}} - {{help.message}}</div>
+      </div>
+    </div>
     <div class="hello" v-if="!user.authenticated">
     Email Address: <input v-model="email" placeholder="blabla@bla.com" type="text" />
     Password: <input v-model="password" placeholder="Password" type="password" />
@@ -19,11 +24,33 @@ export default {
       email: '',
       password: '',
       user: auth.user,
+      error: {},
+    }
+  },
+  computed: {
+    errors: function () {
+        let errors = [];
+        let key;
+        if (this.error.errors) {
+          for (key in this.error.errors) {
+            var error_object     = {};
+            error_object.type    = key;
+            error_object.message = this.error.errors[key][0];
+            errors.push(error_object);
+         }
+       }
+        if (this.error.error && !this.error.errors) {
+          var error_object     = {};
+          error_object.type    = "Incorrect";
+          error_object.message = this.error.error;
+          errors.push(error_object);
+       }
+        return errors
     }
   },
   methods: {
     submit: function () {
-      auth.login( this, this.email, this.password )
+      auth.login( this, this.email, this.password, '/' )
     },
     logout: function() {
       auth.logout( this );
