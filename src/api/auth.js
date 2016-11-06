@@ -13,7 +13,7 @@ export default {
     auth_token: null,
   },
   login( context, email, password, redirect = null ) {
-    context.$http.post( LOGIN_URL, { email: email, password: password }).then(data => data.json()).then( (data) => {
+    context.$http.post( LOGIN_URL, { email: email, password: password }, { headers: this.getAuthHeaders() } ).then(data => data.json()).then( (data) => {
       this.user.authenticated = true
       localStorage.setItem( 'auth', data.authorization_token )
 
@@ -41,8 +41,15 @@ export default {
     return this.user.authenticated
   },
   loadProducts( context ) {
-    context.$http.get( PRODUCTS_URL ).then( (data) => {
-      console.log(data);
+    context.$http.get( PRODUCTS_URL, { headers: this.getAuthHeaders() } ).then(data => data.json()).then( (data) => {
+      context.products = data;
     } ).catch(console.log.bind(console));
+  },
+  getAuthHeaders() {
+    var auth_token = localStorage.getItem( 'auth' );
+    if ( auth_token !== null ) {
+      return { 'Authorization': 'Bearer ' + auth_token };
+    }
+
   }
 }

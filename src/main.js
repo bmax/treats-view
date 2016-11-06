@@ -28,15 +28,3 @@ new Vue({
 })
 
 auth.checkAuth()
-
-Vue.http.interceptors.push((request, next) => {
-
-  // modify request
-  var auth_token = localStorage.getItem( 'auth' );
-  if ( auth_token !== null ) {
-    request.headers.set( 'Authorization', 'Bearer ' + auth_token );
-  }
-
-  // continue to next interceptor
-  next();
-})

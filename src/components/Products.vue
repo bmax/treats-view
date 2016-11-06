@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     List Products
-    {{products}}
+    {{formatted_products}}
+    <br/>
+    {{formatted_products[0].name}}
     <div>
   </div>
 </template>
@@ -15,10 +17,15 @@ export default {
       products: []
     }
   },
+  computed: {
+    formatted_products: function () {
+      console.log( this.products );
+      return this.products;
+    }
+  },
   methods: {
     loadProducts: function () {
-      var products = auth.loadProducts( this );
-      console.log( products );
+      auth.loadProducts( this );
     }
   },
   mounted() {
