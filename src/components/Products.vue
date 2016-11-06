@@ -1,10 +1,9 @@
 <template>
   <div class="container">
-    List Products
-    {{formatted_products}}
-    <br/>
-    {{formatted_products[0].name}}
-    <div>
+    <h3>List Products</h3>
+    <div v-if="formatted_products">
+      <div v-for="product in formatted_products">{{product.name}} - {{product.description}}<br/>{{product.sizes}}</div>
+    </div>
   </div>
 </template>
 
