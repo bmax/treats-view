@@ -6,6 +6,7 @@ const API_URL      = 'http://localhost:8000/api/'
 const LOGIN_URL    = API_URL + 'auth'
 const SIGNUP_URL   = API_URL + 'user/create'
 const PRODUCTS_URL = API_URL + 'products'
+const ORDER_URL    = API_URL + 'order'
 
 export default {
   user: {
@@ -43,6 +44,15 @@ export default {
   loadProducts( context ) {
     context.$http.get( PRODUCTS_URL, { headers: this.getAuthHeaders() } ).then(data => data.json()).then( (data) => {
       context.products = data;
+    }, (response) => {
+      context.error = response.data;
+      if ( response.status === 0 ) context.error = "Failed Loading";
+    } ).catch(console.log.bind(console));
+  },
+  order( id, context ) {
+    context.$http.get( ORDER_URL + '/' + id, { headers: this.getAuthHeaders() } ).then(data => data.json()).then( (data) => {
+      context.products = data;
+      console.log(data);
     } ).catch(console.log.bind(console));
   },
   getAuthHeaders() {
