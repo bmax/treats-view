@@ -1,6 +1,7 @@
 var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
+var webpack = require('webpack')
 var projectRoot = path.resolve(__dirname, '../')
 
 module.exports = {
@@ -19,7 +20,8 @@ module.exports = {
       'vue$': 'vue/dist/vue',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      jquery: "jquery/dist/jquery"
     }
   },
   resolveLoader: {
@@ -66,5 +68,13 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $ : "jquery",
+      jQuery : "jquery",
+      "window.jQuery" : "jquery",
+      "root.jQuery" : "jquery"
+    })
+  ]
 }

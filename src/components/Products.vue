@@ -9,7 +9,7 @@
         <div class='price'>$20</div>
         <div class='description'>{{product.description}}</div>
         <div class='sizes'>{{product.sizes}}</div>
-        <router-link :to="{ path: '/order/' + product.id }">Order</router-link>
+        <router-link :to="{ path: '/order/' + product.id }" class="orderlink">Buy</router-link>
       </div>
     </div>
   </div>
@@ -76,5 +76,8 @@ export default {
   margin-top:5px;
   padding: 5px;
   font-size: 10px;
+}
+.orderlink {
+  float:right;
 }
 </style>

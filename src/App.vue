@@ -33,16 +33,16 @@ body {
   margin:0;
   padding:0;
 }
-
+.nav li { list-style:none; }
 #app {
-  color: #2c3e50;
+  color: #000;
   font-family: Source Sans Pro, Helvetica, sans-serif;
   text-align: left;
 }
 
 #app a {
-  color: #42b983;
   text-decoration: none;
+  color: #3568BB;
 }
 #container {
   padding:25px;
@@ -54,10 +54,11 @@ body {
   text-align: left;
 }
 .header {
-  background-color: orange;
+  background-color: #1C1715;
   padding:25px;
 }
 .logo_text {
   font-size: 40px;
+  color: #3568BB;
 }
 </style>
